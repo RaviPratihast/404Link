@@ -1,66 +1,75 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SITE_METADATA } from "@/constants/site";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
+  description: SITE_METADATA.description,
+};
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-start justify-center px-6 py-24">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-[var(--color-foreground-muted)]">
+          Digital Agency
+        </p>
+        <h1 className="mb-6 max-w-4xl text-6xl leading-[1.05] font-semibold tracking-tight text-[var(--color-foreground)] sm:text-7xl lg:text-8xl">
+          {SITE_METADATA.tagline}
+        </h1>
+        <p className="mb-10 max-w-xl text-lg text-[var(--color-foreground-muted)]">
+          {SITE_METADATA.description}
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href="/work"
+            className="rounded-[var(--radius-md)] bg-[var(--color-brand)] px-6 py-3 text-sm font-medium text-white transition-opacity duration-150 hover:opacity-80"
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            See our work
+          </Link>
+          <Link
+            href="/contact"
+            className="rounded-[var(--radius-md)] border border-[var(--color-border)] px-6 py-3 text-sm font-medium text-[var(--color-foreground)] transition-colors duration-150 hover:bg-[var(--color-surface)]"
           >
-            Documentation
-          </a>
+            Start a project
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
+            {SERVICES.map((service) => (
+              <div key={service.title} className="flex flex-col gap-3">
+                <h2 className="text-base font-semibold text-[var(--color-foreground)]">
+                  {service.title}
+                </h2>
+                <p className="text-sm leading-relaxed text-[var(--color-foreground-muted)]">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
+
+const SERVICES = [
+  {
+    title: "Design Systems",
+    description:
+      "Token-driven component libraries built for scale. We architect the systems that power product teams.",
+  },
+  {
+    title: "Frontend Engineering",
+    description:
+      "Performance-first React and Next.js applications. We write production code, not prototypes.",
+  },
+  {
+    title: "Microfrontend Architecture",
+    description:
+      "Module Federation at scale. Decoupled teams, unified experiences — without the coordination overhead.",
+  },
+] as const;
