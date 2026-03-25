@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { SiteLogo } from "@/components/common/SiteLogo";
 import { NAV_ITEMS, SITE_METADATA } from "@/constants/site";
 
 export const Footer = () => {
@@ -12,9 +13,10 @@ export const Footer = () => {
           <div className="flex flex-col gap-3">
             <Link
               href="/"
-              className="font-mono text-base font-semibold tracking-tight"
+              className="inline-flex w-fit shrink-0 items-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              aria-label={SITE_METADATA.name}
             >
-              {SITE_METADATA.name}
+              <SiteLogo className="h-8 sm:h-9" />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
               {SITE_METADATA.tagline}

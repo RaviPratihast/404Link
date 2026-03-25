@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_OG_IMAGE } from "@/constants/og-image";
 import { SITE_KEYWORDS } from "@/constants/seo";
 import { SITE_METADATA } from "@/constants/site";
 import { siteUrl } from "@/lib/site-url";
@@ -35,11 +36,13 @@ export const createPageMetadata = ({
       siteName: SITE_METADATA.name,
       type: "website",
       locale: "en_US",
+      images: [SITE_OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} — ${SITE_METADATA.name}`,
       description,
+      images: [SITE_OG_IMAGE.url],
     },
   };
 };
@@ -64,11 +67,13 @@ export const createHomeMetadata = (): Metadata => {
       siteName: SITE_METADATA.name,
       type: "website",
       locale: "en_US",
+      images: [SITE_OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
       description: SITE_METADATA.description,
+      images: [SITE_OG_IMAGE.url],
     },
   };
 };

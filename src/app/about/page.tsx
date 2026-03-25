@@ -28,8 +28,8 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_1fr]">
           <div className="flex flex-col gap-6 text-base leading-relaxed text-muted-foreground">
             <p>
-              404linq was founded on a simple observation: most engineering
-              agencies are generalists. They take any project, use any stack,
+              Founded in 2025, 404linq started from a simple observation: most
+              engineering agencies are generalists. They take any project, use any stack,
               and deliver average results. Product teams spend months cleaning up
               the code once they leave.
             </p>
@@ -147,9 +147,8 @@ export default function AboutPage() {
 }
 
 const ABOUT_STATS = [
-  { value: "2019", label: "Founded" },
-  { value: "78+", label: "" },
-  { value: "40+", label: "Clients served" },
+  { value: "2025", label: "Founded" },
+  { value: "42+", label: "Clients served" },
   { value: "100%", label: "Repeat engagement rate" },
 ] as const;
 

@@ -18,7 +18,7 @@ export const WorkPreview = () => {
             Track record
           </p>
           <h2 className="heading-section">
-            78+ projects shipped.
+            42+ clients served.
           </h2>
         </div>
         {/* See the work — re-enable when portfolio is live
@@ -32,9 +32,9 @@ export const WorkPreview = () => {
       </div>
 
       <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-        From landing pages and mobile apps to microfrontend platforms serving
-        50,000+ users — 78 projects delivered across industries, on time and
-        built to last.
+        From landing pages and mobile apps to microfrontend platforms at scale
+        — we ship for engineering teams across industries, on time and built to
+        last.
       </p>
 
       <div className="mt-12 flex flex-wrap gap-2">

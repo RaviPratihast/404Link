@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS, SITE_METADATA } from "@/constants/site";
 import { LiveClock } from "@/components/common/LiveClock";
+import { SiteLogo } from "@/components/common/SiteLogo";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -36,9 +37,10 @@ export const Header = () => {
       <div className="container-site flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="font-mono text-base font-semibold tracking-tight"
+          className="flex shrink-0 items-center outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+          aria-label={SITE_METADATA.name}
         >
-          {SITE_METADATA.name}
+          <SiteLogo priority />
         </Link>
 
         <nav aria-label="Main navigation" className="hidden md:block">
@@ -91,8 +93,9 @@ export const Header = () => {
               className="flex w-[min(18rem,calc(100vw-2rem))] max-w-[85vw] flex-col pb-[max(1rem,env(safe-area-inset-bottom,0px))]"
             >
               <SheetHeader className="pr-12">
-                <SheetTitle className="font-mono text-left text-base">
-                  {SITE_METADATA.name}
+                <SheetTitle className="text-left">
+                  <span className="sr-only">{SITE_METADATA.name}</span>
+                  <SiteLogo className="h-8 sm:h-9" />
                 </SheetTitle>
               </SheetHeader>
               <nav

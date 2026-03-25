@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SiteJsonLd } from "@/components/site-json-ld";
+import { SITE_LOGO_URL } from "@/constants/logo-path";
+import { SITE_OG_IMAGE } from "@/constants/og-image";
 import { SITE_KEYWORDS } from "@/constants/seo";
 import { SITE_METADATA } from "@/constants/site";
 import { getSiteOrigin, siteUrl } from "@/lib/site-url";
@@ -45,13 +47,20 @@ export const metadata: Metadata = {
     description: SITE_METADATA.description,
     locale: "en_US",
     url: getSiteOrigin(),
+    images: [SITE_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_METADATA.name,
     description: SITE_METADATA.description,
+    images: [SITE_OG_IMAGE.url],
   },
   category: "business",
+  icons: {
+    icon: [{ url: SITE_LOGO_URL, type: SITE_OG_IMAGE.type }],
+    apple: [{ url: SITE_LOGO_URL, type: SITE_OG_IMAGE.type }],
+    shortcut: SITE_LOGO_URL,
+  },
 };
 
 type RootLayoutProps = {

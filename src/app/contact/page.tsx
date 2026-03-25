@@ -69,5 +69,9 @@ const CONTACT_DETAILS = [
     href: "mailto:krishna@404linq.com",
   },
   { label: "Response time", value: "Within 24 hours", href: null },
-  { label: "Location", value: "Remote — worldwide", href: null },
+  {
+    label: "Address",
+    value: "Bangalore, Karnataka, India",
+    href: null,
+  },
 ] as const;
