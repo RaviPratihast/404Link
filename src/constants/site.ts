@@ -9,8 +9,21 @@ export const SITE_METADATA: SiteMetadata = {
 };
 
 export const NAV_ITEMS: NavigationItem[] = [
-  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
+
+export type SiteStat = {
+  numericValue: number;
+  suffix: string;
+  /** Omit or empty to show value only (e.g. 78+ with no caption). */
+  label?: string;
+};
+
+export const STATS: readonly SiteStat[] = [
+  { numericValue: 78, suffix: "+" },
+  { numericValue: 40, suffix: "+", label: "Engineering clients" },
+  { numericValue: 3, suffix: "×", label: "Avg. team velocity gain" },
+  { numericValue: 98, suffix: "", label: "Average Lighthouse score" },
+] as const;

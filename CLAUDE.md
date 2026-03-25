@@ -684,6 +684,9 @@ Constraints:
   - Named exports throughout — no default component exports except Next.js page/layout conventions
   - No barrel index.ts files
   - All page-level metadata exported as const metadata: Metadata from the page file
+  - shadcn/ui uses @base-ui/react — NO asChild prop; use buttonVariants() + Link instead of Button asChild
+  - buttonVariants must be imported from @/lib/button-variants (server-safe), NOT @/components/ui/button
+  - SheetTrigger takes className directly (base-ui renders a button natively); no asChild needed
 
 Scripts:
   pnpm dev           # Next.js dev server
