@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/lib/button-variants";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { CTABanner } from "@/components/sections/CTABanner";
-import { SITE_METADATA } from "@/constants/site";
+import { createPageMetadata } from "@/lib/create-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About",
-  description: `About ${SITE_METADATA.name} — who we are and how we work.`,
-};
+  description:
+    "404linq is a digital agency building production-grade web experiences, design systems, and scalable frontend architecture for teams that ship.",
+  pathname: "/about",
+});
 
 export default function AboutPage() {
   return (
