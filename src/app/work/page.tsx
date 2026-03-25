@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { PROJECTS, CATEGORIES } from "@/constants/work";
-import { SITE_METADATA } from "@/constants/site";
+import { createPageMetadata } from "@/lib/create-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Work",
-  description: `Case studies and projects from ${SITE_METADATA.name}.`,
-};
+  description:
+    "Case studies from 404linq: production systems shipped for engineering teams — performance, architecture, and outcomes you can verify.",
+  pathname: "/work",
+});
 
 export default function WorkPage() {
   return (

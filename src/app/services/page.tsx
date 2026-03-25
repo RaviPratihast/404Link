@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { buttonVariants } from "@/lib/button-variants";
@@ -6,12 +5,14 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { SERVICES } from "@/constants/services";
-import { SITE_METADATA } from "@/constants/site";
+import { createPageMetadata } from "@/lib/create-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Services",
-  description: `What ${SITE_METADATA.name} builds — design systems, frontend engineering, and microfrontend architecture.`,
-};
+  description:
+    "End-to-end services from 404linq: design systems, high-performance React and Next.js engineering, microfrontends, performance audits, and SEO-ready delivery.",
+  pathname: "/services",
+});
 
 export default function ServicesPage() {
   return (

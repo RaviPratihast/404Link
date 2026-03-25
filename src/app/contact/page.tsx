@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
-import { SITE_METADATA } from "@/constants/site";
+import { createPageMetadata } from "@/lib/create-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact",
-  description: `Start a project with ${SITE_METADATA.name}.`,
-};
+  description:
+    "Start a project with 404linq. Tell us what you are building — we respond within 24 hours with a clear assessment and next steps.",
+  pathname: "/contact",
+});
 
 export default function ContactPage() {
   return (
