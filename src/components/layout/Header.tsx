@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -17,6 +18,18 @@ import { LiveClock } from "@/components/common/LiveClock";
 
 export const Header = () => {
   const pathname = usePathname();
+  /** Always boolean so `open` is never `undefined` (Base UI otherwise flips controlled ↔ uncontrolled). */
+  const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
+
+  const handleMobileNavOpenChange = useCallback((nextOpen: boolean) => {
+    setMobileNavOpen(nextOpen === true);
+  }, []);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      setMobileNavOpen(false);
+    });
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b bg-background/80 backdrop-blur-md">
@@ -60,7 +73,10 @@ export const Header = () => {
             Get in touch
           </Link>
 
-          <Sheet>
+          <Sheet
+            open={mobileNavOpen}
+            onOpenChange={handleMobileNavOpenChange}
+          >
             <SheetTrigger
               className={cn(
                 buttonVariants({ variant: "ghost", size: "icon" }),
@@ -70,18 +86,27 @@ export const Header = () => {
             >
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
-              <SheetHeader>
+            <SheetContent
+              side="right"
+              className="flex w-[min(18rem,calc(100vw-2rem))] max-w-[85vw] flex-col pb-[max(1rem,env(safe-area-inset-bottom,0px))]"
+            >
+              <SheetHeader className="pr-12">
                 <SheetTitle className="font-mono text-left text-base">
                   {SITE_METADATA.name}
                 </SheetTitle>
               </SheetHeader>
-              <nav className="mt-8 px-4" aria-label="Mobile navigation">
+              <nav
+                className="flex min-h-0 flex-1 flex-col px-4"
+                aria-label="Mobile navigation"
+              >
                 <ul className="flex flex-col gap-1" role="list">
                   {NAV_ITEMS.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
+                        onClick={() => {
+                          setMobileNavOpen(false);
+                        }}
                         className={`block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 ${
                           pathname === item.href
                             ? "bg-secondary font-medium text-foreground"
@@ -96,10 +121,16 @@ export const Header = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 border-t pt-6">
+                <div className="mt-auto border-t pt-6">
                   <Link
                     href="/contact"
-                    className={cn(buttonVariants({ size: "sm" }), "w-full rounded-full")}
+                    onClick={() => {
+                      setMobileNavOpen(false);
+                    }}
+                    className={cn(
+                      buttonVariants({ size: "sm" }),
+                      "w-full rounded-full"
+                    )}
                   >
                     Get in touch
                   </Link>
