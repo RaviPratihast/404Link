@@ -148,6 +148,7 @@ export default function AboutPage() {
 
 const ABOUT_STATS = [
   { value: "2025", label: "Founded" },
+  { value: "78+", label: "Projects delivered" },
   { value: "42+", label: "Clients served" },
   { value: "100%", label: "Repeat engagement rate" },
 ] as const;
