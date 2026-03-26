@@ -1,4 +1,5 @@
 import { createPageMetadata } from "@/lib/create-page-metadata";
+import { ContactForm } from "./ContactForm";
 
 export const metadata = createPageMetadata({
   title: "Contact",
@@ -10,7 +11,7 @@ export const metadata = createPageMetadata({
 export default function ContactPage() {
   return (
     <section className="container-site section-padding">
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[minmax(0,1fr)_min(18.5rem,100%)] lg:items-start lg:gap-16 xl:gap-20">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,30rem)] lg:items-start lg:gap-16 xl:gap-20">
         <div className="flex min-w-0 flex-col gap-10">
           <header className="flex max-w-2xl flex-col gap-4">
             <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
@@ -46,17 +47,20 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <aside className="rounded-2xl border bg-card p-6 shadow-sm lg:sticky lg:top-28 lg:p-8">
-          <p className="text-sm text-muted-foreground">
-            Typical engagement starts in
-          </p>
-          <p className="mt-2 text-3xl font-semibold tracking-tight">2–4 weeks</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            After initial scoping call and proposal sign-off.
-          </p>
-        </aside>
-
-        {/* Contact form — re-enable: import ContactForm; use a 3-column lg grid (copy | form) */}
+        <div className="flex flex-col gap-6 lg:sticky lg:top-28">
+          <ContactForm />
+          <aside className="rounded-2xl border bg-card p-6 shadow-sm lg:p-8">
+            <p className="text-sm text-muted-foreground">
+              Typical engagement starts in
+            </p>
+            <p className="mt-2 text-3xl font-semibold tracking-tight">
+              2–4 weeks
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              After initial scoping call and proposal sign-off.
+            </p>
+          </aside>
+        </div>
       </div>
     </section>
   );

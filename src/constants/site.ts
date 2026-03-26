@@ -17,11 +17,12 @@ export const NAV_ITEMS: NavigationItem[] = [
 export type SiteStat = {
   numericValue: number;
   suffix: string;
-  /** Omit or empty to show value only (e.g. 42+ with no caption). */
+  /** Omit or empty to show value only (e.g. 78+ with no caption). */
   label?: string;
 };
 
 export const STATS: readonly SiteStat[] = [
+  { numericValue: 78, suffix: "+", label: "Projects delivered" },
   { numericValue: 42, suffix: "+", label: "Engineering clients" },
   { numericValue: 3, suffix: "×", label: "Avg. team velocity gain" },
   { numericValue: 98, suffix: "", label: "Average Lighthouse score" },
