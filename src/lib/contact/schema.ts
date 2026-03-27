@@ -30,7 +30,7 @@ export const contactSchema = z.object({
   company: z.string().trim().max(140).optional(),
   service: z.enum(SERVICE_OPTIONS),
   message: z.string().trim().min(20).max(5000),
-  website: z.string().trim().max(0).optional(),
+  _hp: z.string().trim().max(0).optional(),
 });
 
 export type ContactPayload = z.infer<typeof contactSchema>;

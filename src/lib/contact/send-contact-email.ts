@@ -46,7 +46,7 @@ export const sendContactEmail = async (payload: ContactPayload): Promise<void> =
     message: escapeHtml(payload.message),
   };
 
-  await resend.emails.send({
+  const result = await resend.emails.send({
     from: env.from,
     to: [env.to],
     replyTo: payload.email,
@@ -66,4 +66,8 @@ export const sendContactEmail = async (payload: ContactPayload): Promise<void> =
       </div>
     `,
   });
+
+  if (result.error) {
+    throw new Error(`[resend] ${result.error.message}`);
+  }
 };

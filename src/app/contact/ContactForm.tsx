@@ -17,7 +17,7 @@ type FormState =
         service: string;
       };
     }
-  | { status: "error"; message: string };
+  | { status: "error"; message: string; code?: string };
 
 const toFlag = (countryCode: string): string =>
   countryCode
@@ -71,7 +71,7 @@ export const ContactForm = () => {
       company: String(formData.get("company") ?? ""),
       service: String(formData.get("service") ?? ""),
       message: String(formData.get("message") ?? ""),
-      website: String(formData.get("website") ?? ""),
+      _hp: String(formData.get("_hp") ?? ""),
     };
 
     try {
@@ -85,6 +85,7 @@ export const ContactForm = () => {
         const data = (await response.json().catch(() => null)) as
           | {
               error?: {
+                code?: string;
                 message?: string;
                 details?: Array<{ field?: string; message?: string }>;
               };
@@ -100,6 +101,7 @@ export const ContactForm = () => {
           .filter((entry): entry is string => Boolean(entry));
         setFormState({
           status: "error",
+          ...(data?.error?.code ? { code: data.error.code } : {}),
           message:
             details && details.length > 0
               ? details.join(" | ")
@@ -120,6 +122,7 @@ export const ContactForm = () => {
     } catch {
       setFormState({
         status: "error",
+        code: "NETWORK_ERROR",
         message: "Network error. Please check your connection and try again.",
       });
     }
@@ -175,9 +178,11 @@ export const ContactForm = () => {
         </div>
         <h2 className="text-xl font-semibold">Couldn&apos;t send your message.</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">{formState.message}</p>
-        <p className="text-xs text-muted-foreground">
-          Check required fields. Message must be at least 20 characters and phone should be digits only.
-        </p>
+        {formState.code === "VALIDATION_ERROR" ? (
+          <p className="text-xs text-muted-foreground">
+            Check required fields. Message must be at least 20 characters and phone should be digits only.
+          </p>
+        ) : null}
         <Button
           variant="outline"
           size="sm"
@@ -265,9 +270,9 @@ export const ContactForm = () => {
       </div>
 
       <input
-        name="website"
+        name="_hp"
         tabIndex={-1}
-        autoComplete="off"
+        autoComplete="new-password"
         aria-hidden="true"
         className="hidden"
       />

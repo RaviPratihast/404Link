@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { contactSchema } from "@/lib/contact/schema";
 import { sendContactEmail } from "@/lib/contact/send-contact-email";
+import { persistContactLead } from "@/lib/contact/store-contact-lead";
 
 type ContactSuccessResponse = {
   data: { received: true };
@@ -30,11 +31,28 @@ export async function POST(request: Request) {
     const payload = contactSchema.parse(body);
 
     // Honeypot: bots filling this hidden field are rejected.
-    if (payload.website) {
+    if (payload._hp) {
       return NextResponse.json<ContactSuccessResponse>(
         { data: { received: true } },
         { status: 200 }
       );
+    }
+
+    const persistResult = await persistContactLead(payload);
+    if (persistResult.status === "duplicate") {
+      return NextResponse.json<ContactErrorResponse>(
+        {
+          error: {
+            code: "DUPLICATE_SUBMISSION",
+            message: persistResult.message,
+          },
+        },
+        { status: 409 }
+      );
+    }
+
+    if (persistResult.status === "skipped") {
+      console.warn("[contact-api] lead persistence skipped", persistResult.reason);
     }
 
     await sendContactEmail(payload);
@@ -61,11 +79,19 @@ export async function POST(request: Request) {
     }
 
     console.error("[contact-api] failed to send contact email", error);
+    const debugMessage =
+      process.env.NODE_ENV !== "production"
+        ? error instanceof Error
+          ? error.message
+          : "Unknown server error"
+        : undefined;
     return NextResponse.json<ContactErrorResponse>(
       {
         error: {
           code: "DELIVERY_FAILED",
-          message: "Unable to send your message right now. Please try again.",
+          message: debugMessage
+            ? `Unable to send your message right now. ${debugMessage}`
+            : "Unable to send your message right now. Please try again.",
         },
       },
       { status: 502 }
